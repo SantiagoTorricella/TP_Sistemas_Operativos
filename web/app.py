@@ -1,4 +1,5 @@
 import os
+import re
 
 from flask import Flask, abort, flash, redirect, render_template, request
 from pymongo import MongoClient
@@ -43,13 +44,26 @@ def leer_form(form):
             datos[campo] = tipo(valor)
         except ValueError:
             raise ValueError(f"El campo {campo} debe ser numerico")
+    if datos["cantidad_paginas"] < 1:
+        raise ValueError("La cantidad de paginas debe ser mayor a 0")
+    if datos["costo_usd"] < 0:
+        raise ValueError("El costo no puede ser negativo")
+    if len(datos["isbn"].replace("-", "")) not in (10, 13):
+        raise ValueError("El ISBN debe tener 10 o 13 caracteres (sin contar guiones)")
     return datos
 
 
 @app.route("/")
 def index():
-    libros = coleccion.find().sort("id")
-    return render_template("index.html", libros=libros)
+    # buscador: /?q=texto filtra por titulo o editorial, sin distinguir mayusculas
+    q = request.args.get("q", "").strip()
+    filtro = {}
+    if q:
+        # re.escape: el texto se busca literal
+        patron = {"$regex": re.escape(q), "$options": "i"}
+        filtro = {"$or": [{"titulo": patron}, {"editorial": patron}]}
+    libros = coleccion.find(filtro).sort("id")
+    return render_template("index.html", libros=libros, q=q)
 
 
 @app.route("/libros", methods=["POST"])

@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+<form method="get" action="/">
+    <input name="q" value="{{ q }}" placeholder="Titulo o editorial">
+    <button type="submit">Buscar</button>
+    {% if q %}<a href="/">Limpiar</a>{% endif %}
+</form>
+
 <table>
     <tr>
         <th>ID</th><th>Titulo</th><th>Paginas</th><th>Editorial</th><th>ISBN</th><th>Costo USD</th><th>Acciones</th>
@@ -22,7 +28,7 @@
         </td>
     </tr>
     {% else %}
-    <tr><td colspan="7">No hay libros cargados</td></tr>
+    <tr><td colspan="7">{% if q %}Sin resultados para "{{ q }}"{% else %}No hay libros cargados{% endif %}</td></tr>
     {% endfor %}
 </table>
 
@@ -30,10 +36,10 @@
 <form method="post" action="/libros">
     <p><label>ID <input name="id" type="number" required></label></p>
     <p><label>Titulo <input name="titulo" required></label></p>
-    <p><label>Paginas <input name="cantidad_paginas" type="number" required></label></p>
+    <p><label>Paginas <input name="cantidad_paginas" type="number" min="1" required></label></p>
     <p><label>Editorial <input name="editorial" required></label></p>
     <p><label>ISBN <input name="isbn" required></label></p>
-    <p><label>Costo USD <input name="costo_usd" type="number" step="any" required></label></p>
+    <p><label>Costo USD <input name="costo_usd" type="number" min="0" step="0.01" required></label></p>
     <button type="submit">Agregar</button>
 </form>
 {% endblock %}
