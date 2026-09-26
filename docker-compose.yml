@@ -10,6 +10,15 @@ services:
     networks:
       - red_libros
 
+  web:
+    build: ./web
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - red_libros
+
 volumes:
   mongo_data:
 
