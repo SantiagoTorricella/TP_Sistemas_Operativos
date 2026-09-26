@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, flash, redirect, render_template, request
+from flask import Flask, abort, flash, redirect, render_template, request
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 
@@ -62,4 +62,37 @@ def crear():
         flash(str(e))
     except DuplicateKeyError:
         flash(f"Ya existe un libro con id {datos['id']}")
+    return redirect("/")
+
+
+@app.route("/libros/<int:id>/editar")
+def editar(id):
+    libro = coleccion.find_one({"id": id})
+    if libro is None:
+        abort(404)
+    return render_template("edit.html", libro=libro)
+
+
+@app.route("/libros/<int:id>/editar", methods=["POST"])
+def actualizar(id):
+    try:
+        datos = leer_form(request.form)
+        # si el nuevo id ya lo tiene otro libro, lanza DuplicateKeyError
+        resultado = coleccion.update_one({"id": id}, {"$set": datos})
+    except ValueError as e:
+        flash(str(e))
+        return redirect(f"/libros/{id}/editar")
+    except DuplicateKeyError:
+        flash(f"Ya existe un libro con id {datos['id']}")
+        return redirect(f"/libros/{id}/editar")
+    if resultado.matched_count == 0:
+        abort(404)
+    flash(f"Libro {datos['id']} modificado")
+    return redirect("/")
+
+
+@app.route("/libros/<int:id>/eliminar", methods=["POST"])
+def eliminar(id):
+    coleccion.delete_one({"id": id})
+    flash(f"Libro {id} eliminado")
     return redirect("/")

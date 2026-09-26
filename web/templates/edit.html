@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<h2>Editar libro {{ libro.id }}</h2>
+<form method="post" action="/libros/{{ libro.id }}/editar">
+    <p><label>ID <input name="id" type="number" value="{{ libro.id }}" required></label></p>
+    <p><label>Titulo <input name="titulo" value="{{ libro.titulo }}" required></label></p>
+    <p><label>Paginas <input name="cantidad_paginas" type="number" value="{{ libro.cantidad_paginas }}" required></label></p>
+    <p><label>Editorial <input name="editorial" value="{{ libro.editorial }}" required></label></p>
+    <p><label>ISBN <input name="isbn" value="{{ libro.isbn }}" required></label></p>
+    <p><label>Costo USD <input name="costo_usd" type="number" step="any" value="{{ libro.costo_usd }}" required></label></p>
+    <button type="submit">Guardar</button>
+    <a href="/">Cancelar</a>
+</form>
+{% endblock %}
