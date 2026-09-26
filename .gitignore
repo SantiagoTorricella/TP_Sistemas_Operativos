@@ -1,0 +1,4 @@
+__pycache__/
+.env
+# Archivo oculto de Finder
+.DS_Store

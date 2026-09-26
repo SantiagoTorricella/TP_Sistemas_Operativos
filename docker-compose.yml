@@ -1,0 +1,18 @@
+services:
+  db:
+    image: mongo:7
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: libros_db
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - red_libros
+
+volumes:
+  mongo_data:
+
+networks:
+  red_libros:
+    driver: bridge
