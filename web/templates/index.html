@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<table>
+    <tr>
+        <th>ID</th><th>Titulo</th><th>Paginas</th><th>Editorial</th><th>ISBN</th><th>Costo USD</th><th>Acciones</th>
+    </tr>
+    {% for libro in libros %}
+    <tr>
+        <td>{{ libro.id }}</td>
+        <td>{{ libro.titulo }}</td>
+        <td>{{ libro.cantidad_paginas }}</td>
+        <td>{{ libro.editorial }}</td>
+        <td>{{ libro.isbn }}</td>
+        <td>{{ libro.costo_usd }}</td>
+        <td></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7">No hay libros cargados</td></tr>
+    {% endfor %}
+</table>
+
+<h2>Agregar libro</h2>
+<form method="post" action="/libros">
+    <p><label>ID <input name="id" type="number" required></label></p>
+    <p><label>Titulo <input name="titulo" required></label></p>
+    <p><label>Paginas <input name="cantidad_paginas" type="number" required></label></p>
+    <p><label>Editorial <input name="editorial" required></label></p>
+    <p><label>ISBN <input name="isbn" required></label></p>
+    <p><label>Costo USD <input name="costo_usd" type="number" step="any" required></label></p>
+    <button type="submit">Agregar</button>
+</form>
+{% endblock %}

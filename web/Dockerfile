@@ -17,5 +17,6 @@ COPY apache-libros.conf /usr/local/apache2/conf/extra/libros.conf
 
 # codigo de la app
 COPY app.py app.wsgi /app/
+COPY templates /app/templates
 
 # CMD (httpd-foreground) y EXPOSE 80 se heredan de httpd:2.4
