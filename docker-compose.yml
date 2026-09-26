@@ -12,6 +12,11 @@ services:
 
   web:
     build: ./web
+    environment:
+      MONGO_HOST: db
+      MONGO_USER: admin
+      MONGO_PASSWORD: admin123
+      MONGO_DB: libros_db
     ports:
       - "8080:80"
     depends_on:
