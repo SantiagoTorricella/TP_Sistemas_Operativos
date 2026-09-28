@@ -39,8 +39,6 @@ docker compose up --build -d
 
 Abrir **http://localhost:8080**.
 
-La primera vez tarda unos minutos, porque construye la imagen `web` (instala Python y compila `mod_wsgi`).
-
 | Accion | Comando |
 |---|---|
 | Ver estado de los contenedores | `docker compose ps` |
