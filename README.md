@@ -1,4 +1,4 @@
-# TP Final Sistemas Operativos 2025 — Libros con Docker Compose
+# TP Final Sistemas Operativos 2026
 
 Aplicacion web para administrar libros (alta, consulta, modificacion y baja) desplegada con Docker Compose en dos contenedores:
 
