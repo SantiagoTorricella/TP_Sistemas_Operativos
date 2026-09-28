@@ -68,6 +68,7 @@ flowchart LR
 
 ## Variables de entorno
 
+Se que obvio no es una buena practica dejar tus variables de entorno en el README del proyecto, pero este proyecto fue hecho con fines eductaivos.
 Definidas en `docker-compose.yml`.
 
 | Servicio | Variable | Valor | Para que sirve |
