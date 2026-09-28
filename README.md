@@ -68,15 +68,6 @@ flowchart LR
 
 ## Variables de entorno
 
-Se que obvio no es una buena practica dejar tus variables de entorno en el README del proyecto, pero este proyecto fue hecho con fines eductaivos.
 Definidas en `docker-compose.yml`.
 
-| Servicio | Variable | Valor | Para que sirve |
-|---|---|---|---|
-| db | `MONGO_INITDB_ROOT_USERNAME` | `admin` | Usuario administrador que se crea al iniciar MongoDB por primera vez |
-| db | `MONGO_INITDB_ROOT_PASSWORD` | `admin123` | Contraseña de ese usuario |
-| db | `MONGO_INITDB_DATABASE` | `libros_db` | Base de datos de la aplicacion |
-| web | `MONGO_HOST` | `db` | Host de MongoDB |
-| web | `MONGO_USER` | `admin` | Usuario con el que la app se conecta a MongoDB |
-| web | `MONGO_PASSWORD` | `admin123` | Contraseña con la que la app se conecta |
-| web | `MONGO_DB` | `libros_db` | Base de datos que usa la app (coleccion `libros`) |
+
